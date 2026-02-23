@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://21hoss.github.io/sitemap.xml
