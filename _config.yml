@@ -14,10 +14,25 @@ kramdown:
 baseurl: ""
 url: "https://21hoss.github.io"
 
+collections:
+  writeups:
+    output: true
+    permalink: /ctf/:path/
+
+defaults:
+  - scope:
+      path: ""
+      type: writeups
+    values:
+      layout: default
+
+exclude:
+  - ctf-template.md
+
 header_pages:
   - index.md
-  - writeups.md
-  - research.md
-  - blog.md
+  - ctf/index.md
+  - research/index.md
+  - blog/index.md
   - projects.md
-  - about.md
+  - about/index.md
