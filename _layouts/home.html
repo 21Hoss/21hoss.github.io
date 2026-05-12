@@ -1,0 +1,105 @@
+---
+layout: default
+---
+<section class="hero">
+  <div class="hero-terminal" aria-hidden="true">
+    <div class="term-bar">
+      <span class="dot dot-red"></span>
+      <span class="dot dot-amber"></span>
+      <span class="dot dot-green"></span>
+      <span class="term-title">~/21hoss — zsh</span>
+    </div>
+    <div class="term-body">
+      <p><span class="prompt-mini">$</span> whoami</p>
+      <p class="term-out">kelvin_muhoro</p>
+      <p><span class="prompt-mini">$</span> id</p>
+      <p class="term-out">uid=1000(kelvin) groups=1000(kelvin),27(sudo),offsec,blue,red</p>
+      <p><span class="prompt-mini">$</span> cat ~/.profile</p>
+      <p class="term-out term-typed" data-typed='Cybersecurity engineer based in Nairobi. CTF write-ups, applied research, and notes from the trenches.'></p>
+      <p><span class="prompt-mini">$</span> ls /home/kelvin/writeups | head</p>
+      <p class="term-out">forensics  pwn  reversing  crypto  web  osint  malware  incident-handling</p>
+      <p><span class="prompt-mini">$</span> <span class="cursor blink">▌</span></p>
+    </div>
+  </div>
+
+  <div class="hero-copy">
+    <h1 class="hero-title">Enumeration is key.</h1>
+    <p class="hero-lead">{{ site.description }}</p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="{{ '/ctf/' | relative_url }}">Browse write-ups →</a>
+      <a class="btn btn-outline" href="{{ '/competitions/' | relative_url }}">View competitions</a>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <header class="section-header">
+    <h2 class="section-title">CTF disciplines</h2>
+    <p class="section-sub">Pick a category to drill into.</p>
+  </header>
+  <div class="grid grid-cats">
+    {%- for cat in site.ctf_categories -%}
+      {%- assign cat_count = 0 -%}
+      {%- for w in site.writeups -%}
+        {%- assign w_cat_slug = w.category | default: "uncategorized" | slugify -%}
+        {%- if w_cat_slug == cat.slug -%}{%- assign cat_count = cat_count | plus: 1 -%}{%- endif -%}
+      {%- endfor -%}
+      <a class="cat-tile" href="{{ '/categories/#' | append: cat.slug | relative_url }}" style="--cat-color: var(--cat-{{ cat.slug }});">
+        <span class="cat-icon">{{ cat.icon }}</span>
+        <span class="cat-name">{{ cat.name }}</span>
+        <span class="cat-count">{{ cat_count }} write-up{% if cat_count != 1 %}s{% endif %}</span>
+        <span class="cat-desc">{{ cat.desc }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+<section class="section">
+  <header class="section-header">
+    <h2 class="section-title">Latest write-ups</h2>
+    <a class="section-link" href="{{ '/ctf/' | relative_url }}">All write-ups →</a>
+  </header>
+  {%- assign latest = site.writeups | sort: "date" | reverse -%}
+  {%- if latest.size > 0 -%}
+    <div class="grid grid-cards">
+      {%- for w in latest limit: 6 -%}
+        {%- assign cat_slug = w.category | default: "uncategorized" | slugify -%}
+        {%- assign platform_slug = w.platform | default: "misc" | slugify -%}
+        {%- include writeup-card.html writeup=w cat_slug=cat_slug platform_slug=platform_slug -%}
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <p class="muted">No write-ups yet — soon.</p>
+  {%- endif -%}
+</section>
+
+<section class="section">
+  <header class="section-header">
+    <h2 class="section-title">Active &amp; archived competitions</h2>
+    <a class="section-link" href="{{ '/competitions/' | relative_url }}">All competitions →</a>
+  </header>
+  {%- assign events = site.competitions | sort: "start_date" | reverse -%}
+  {%- if events.size > 0 -%}
+    <div class="grid grid-cards">
+      {%- for e in events limit: 4 -%}
+        <article class="card competition-card" data-status="{{ e.status }}">
+          <div class="card-meta">
+            <span class="badge status status--{{ e.status }}">{{ e.status }}</span>
+            {%- if e.start_date -%}<span class="badge badge-platform">{{ e.start_date | date: "%Y" }}</span>{%- endif -%}
+          </div>
+          <h3 class="card-title"><a href="{{ e.url | relative_url }}">{{ e.title }}</a></h3>
+          {%- if e.description -%}<p class="card-excerpt">{{ e.description | truncate: 160 }}</p>{%- endif -%}
+          <footer class="card-footer">
+            <time>{{ e.start_date | date: "%b %Y" }}{% if e.end_date %} → {{ e.end_date | date: "%b %Y" }}{% endif %}</time>
+          </footer>
+        </article>
+      {%- endfor -%}
+    </div>
+  {%- else -%}
+    <p class="muted">No competitions tracked yet.</p>
+  {%- endif -%}
+</section>
+
+<div class="page-content prose">
+  {{ content }}
+</div>

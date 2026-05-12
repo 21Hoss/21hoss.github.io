@@ -1,0 +1,56 @@
+---
+layout: default
+---
+{%- assign cat_slug = page.category | default: "uncategorized" | slugify -%}
+{%- assign platform_slug = page.platform | default: "misc" | slugify -%}
+{%- assign cat = site.ctf_categories | where: "slug", cat_slug | first -%}
+
+<article class="writeup prose">
+  <header class="writeup-header">
+    <nav class="breadcrumbs" aria-label="Breadcrumb">
+      <a href="{{ '/ctf/' | relative_url }}">writeups</a>
+      <span class="sep">/</span>
+      <a href="{{ '/categories/#' | append: cat_slug | relative_url }}">{{ cat.name | default: page.category }}</a>
+      <span class="sep">/</span>
+      <span>{{ page.platform }}</span>
+    </nav>
+
+    <p class="writeup-eyebrow">$ ./solve --challenge "{{ page.title }}"</p>
+    <h1 class="writeup-title">{{ page.title }}</h1>
+
+    {%- if page.tldr -%}
+      <div class="tldr">
+        <span class="tldr-label">TL;DR</span>
+        <p>{{ page.tldr | markdownify | strip_html }}</p>
+      </div>
+    {%- endif -%}
+
+    <ul class="writeup-meta">
+      <li><span class="k">platform</span><span class="v">{{ page.platform }}</span></li>
+      <li><span class="k">category</span><span class="v">{{ cat.name | default: page.category }}</span></li>
+      {%- if page.difficulty -%}<li><span class="k">difficulty</span><span class="v badge-diff badge-diff--{{ page.difficulty | downcase }}">{{ page.difficulty }}</span></li>{%- endif -%}
+      {%- if page.points -%}<li><span class="k">points</span><span class="v">{{ page.points }}</span></li>{%- endif -%}
+      {%- if page.ctf -%}<li><span class="k">event</span><span class="v"><a href="{{ '/competitions/' | relative_url }}">{{ page.ctf }}</a></span></li>{%- endif -%}
+      {%- if page.status -%}<li><span class="k">status</span><span class="v status status--{{ page.status }}">{{ page.status }}</span></li>{%- endif -%}
+      <li><span class="k">date</span><span class="v"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time></span></li>
+      {%- if page.author -%}<li><span class="k">author</span><span class="v">{{ page.author }}</span></li>{%- endif -%}
+    </ul>
+
+    {%- if page.tags and page.tags.size > 0 -%}
+      <ul class="tag-list writeup-tags">
+        {%- for t in page.tags -%}{%- assign tslug = t | slugify -%}<li><a href="{{ '/tags/' | append: '#' | append: tslug | relative_url }}">#{{ t }}</a></li>{%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- if page.room_url -%}
+      <p class="writeup-room"><a class="btn btn-outline" href="{{ page.room_url }}" rel="noopener">→ original challenge</a></p>
+    {%- endif -%}
+  </header>
+
+  {{ content }}
+
+  <footer class="writeup-footer">
+    <p class="muted">— {{ page.author | default: site.author.name }}, {{ page.date | date: "%Y-%m-%d" }}</p>
+    <p><a class="btn btn-outline" href="{{ '/ctf/' | relative_url }}">← back to write-ups</a></p>
+  </footer>
+</article>

@@ -1,38 +1,103 @@
-title: kelvin's Website
-description: Enumeration is Key.
-remote_theme: "pages-themes/hacker@v0.2.0"
-
-plugins:
-  - jekyll-remote-theme
-  - jekyll-include-cache
-  - jekyll-sitemap
-
-kramdown:
-  parse_block_html: true
-  smart_quotes: ["apos", "apos", "quot", "quot"]
+title: "kelvin // ctf"
+tagline: "Enumeration is key."
+description: >-
+  CTF write-ups, security research, and notes from Kelvin Muhoro — a
+  cybersecurity engineer in Kenya. Forensics, binary exploitation, reversing,
+  cryptography, and web.
+author:
+  name: "Kelvin Muhoro"
+  handle: "21hoss"
+  location: "Nairobi, KE"
 
 baseurl: ""
 url: "https://21hoss.github.io"
+
+permalink: /blog/:year/:month/:slug/
+
+markdown: kramdown
+highlighter: rouge
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: "highlight"
+    block:
+      line_numbers: false
+  parse_block_html: true
+  smart_quotes: ["apos", "apos", "quot", "quot"]
+  input: GFM
+  hard_wrap: false
+
+sass:
+  style: compressed
+
+plugins:
+  - jekyll-feed
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-include-cache
 
 collections:
   writeups:
     output: true
     permalink: /ctf/:path/
+  competitions:
+    output: true
+    permalink: /competitions/:name/
 
 defaults:
   - scope:
       path: ""
       type: writeups
     values:
+      layout: writeup
+  - scope:
+      path: ""
+      type: competitions
+    values:
+      layout: competition
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+  - scope:
+      path: ""
+    values:
       layout: default
 
+# Browse disciplines (used by /ctf/ and tag pages)
+ctf_categories:
+  - { slug: forensics,         name: "Digital Forensics",   icon: "DFIR", desc: "Memory captures, PCAPs, disk images, artefact recovery." }
+  - { slug: pwn,               name: "Binary Exploitation", icon: "PWN",  desc: "Stack/heap pwn, ROP, format strings, kernel pwn." }
+  - { slug: reversing,         name: "Reverse Engineering", icon: "RE",   desc: "Static and dynamic analysis with Ghidra, IDA, gdb." }
+  - { slug: crypto,            name: "Cryptography",        icon: "CRY",  desc: "Classical, modern, lattice and side-channel attacks." }
+  - { slug: web,               name: "Web Exploitation",    icon: "WEB",  desc: "OWASP, SSRF, auth flaws, deserialization." }
+  - { slug: osint,             name: "OSINT",               icon: "INT",  desc: "Open-source intelligence and recon." }
+  - { slug: malware,           name: "Malware Analysis",    icon: "MAL",  desc: "Triage, unpacking, sandboxing, behavioural analysis." }
+  - { slug: incident-handling, name: "Incident Handling",   icon: "IR",   desc: "Detection, response, and post-mortem." }
+
+ctf_platforms:
+  - { slug: tryhackme,   name: "TryHackMe" }
+  - { slug: cybergame,   name: "CyberGame KE" }
+  - { slug: cryptohack,  name: "CryptoHack" }
+  - { slug: hackthebox,  name: "HackTheBox" }
+
+social:
+  github: "21hoss"
+
 exclude:
+  - README.md
   - ctf-template.md
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - .github
+  - node_modules
+  - script
 
 header_pages:
-  - index.md
   - ctf/index.md
-  - research/index.md
+  - competitions/index.md
   - blog/index.md
-  - projects.md
+  - research/index.md
   - about/index.md

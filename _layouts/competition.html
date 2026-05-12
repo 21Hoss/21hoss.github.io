@@ -1,0 +1,32 @@
+---
+layout: default
+---
+<article class="competition prose">
+  <header class="page-header">
+    <p class="page-eyebrow">$ cat events/{{ page.slug }}.md</p>
+    <h1 class="page-title">{{ page.title }}</h1>
+    <ul class="writeup-meta">
+      {%- if page.start_date -%}<li><span class="k">starts</span><span class="v">{{ page.start_date | date: "%b %-d, %Y" }}</span></li>{%- endif -%}
+      {%- if page.end_date -%}<li><span class="k">ends</span><span class="v">{{ page.end_date | date: "%b %-d, %Y" }}</span></li>{%- endif -%}
+      {%- if page.status -%}<li><span class="k">status</span><span class="v status status--{{ page.status }}">{{ page.status }}</span></li>{%- endif -%}
+      {%- if page.team -%}<li><span class="k">team</span><span class="v">{{ page.team }}</span></li>{%- endif -%}
+      {%- if page.event_url -%}<li><span class="k">site</span><span class="v"><a href="{{ page.event_url }}" rel="noopener">{{ page.event_url }}</a></span></li>{%- endif -%}
+    </ul>
+  </header>
+
+  {{ content }}
+
+  {%- assign event_writeups = site.writeups | where: "ctf", page.title | sort: "date" | reverse -%}
+  {%- if event_writeups.size > 0 -%}
+    <section class="event-writeups">
+      <h2>Write-ups from this event</h2>
+      <div class="grid grid-cards">
+        {%- for w in event_writeups -%}
+          {%- assign cat_slug = w.category | default: "uncategorized" | slugify -%}
+          {%- assign platform_slug = w.platform | default: "misc" | slugify -%}
+          {%- include writeup-card.html writeup=w cat_slug=cat_slug platform_slug=platform_slug -%}
+        {%- endfor -%}
+      </div>
+    </section>
+  {%- endif -%}
+</article>

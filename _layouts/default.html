@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  {%- include head.html -%}
+</head>
+<body class="layout-{{ page.layout | default: 'default' }}{% if page.body_class %} {{ page.body_class }}{% endif %}">
+  <a class="skip-link" href="#main">Skip to content</a>
+  {%- include header.html -%}
+
+  <main id="main" class="site-main">
+    <div class="container">
+      {{ content }}
+    </div>
+  </main>
+
+  {%- include footer.html -%}
+
+  <script src="{{ '/assets/js/site.js' | relative_url }}" defer></script>
+</body>
+</html>

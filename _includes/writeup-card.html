@@ -1,0 +1,29 @@
+{%- assign w = include.writeup -%}
+{%- assign cat_slug = include.cat_slug | default: w.category | default: "uncategorized" | slugify -%}
+{%- assign platform_slug = include.platform_slug | default: w.platform | default: "misc" | slugify -%}
+{%- assign cat = site.ctf_categories | where: "slug", cat_slug | first -%}
+<article class="card writeup-card" data-category="{{ cat_slug }}" data-platform="{{ platform_slug }}">
+  <div class="card-meta">
+    <span class="badge badge-cat badge-cat--{{ cat_slug }}">{{ cat.name | default: w.category }}</span>
+    <span class="badge badge-platform">{{ w.platform }}</span>
+    {%- if w.difficulty -%}<span class="badge badge-diff badge-diff--{{ w.difficulty | downcase }}">{{ w.difficulty }}</span>{%- endif -%}
+    {%- if w.points -%}<span class="badge badge-points">{{ w.points }} pts</span>{%- endif -%}
+  </div>
+  <h3 class="card-title"><a href="{{ w.url | relative_url }}">{{ w.title }}</a></h3>
+  {%- if w.tldr -%}
+    <p class="card-excerpt">{{ w.tldr | strip_html | truncate: 200 }}</p>
+  {%- elsif w.excerpt -%}
+    <p class="card-excerpt">{{ w.excerpt | strip_html | truncate: 200 }}</p>
+  {%- endif -%}
+  <footer class="card-footer">
+    <time datetime="{{ w.date | date_to_xmlschema }}">{{ w.date | date: "%b %-d, %Y" }}</time>
+    {%- if w.tags and w.tags.size > 0 -%}
+      <ul class="tag-list">
+        {%- for t in w.tags limit: 4 -%}
+          {%- assign tslug = t | slugify -%}
+          <li><a href="{{ '/tags/' | append: '#' | append: tslug | relative_url }}">#{{ t }}</a></li>
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+  </footer>
+</article>
