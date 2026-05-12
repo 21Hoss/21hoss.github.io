@@ -1,0 +1,20 @@
+---
+layout: default
+---
+<article class="post prose">
+  <header class="post-header">
+    <p class="post-eyebrow">$ less ~/blog/{{ page.date | date: "%Y-%m-%d" }}-{{ page.slug }}.md</p>
+    <h1 class="post-title">{{ page.title }}</h1>
+    {%- if page.description -%}<p class="post-description">{{ page.description }}</p>{%- endif -%}
+    <div class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %-d, %Y" }}</time>
+      {%- if page.tags and page.tags.size > 0 -%}
+        <ul class="tag-list">
+          {%- for t in page.tags -%}{%- assign tslug = t | slugify -%}<li><a href="{{ '/tags/' | append: '#' | append: tslug | relative_url }}">#{{ t }}</a></li>{%- endfor -%}
+        </ul>
+      {%- endif -%}
+    </div>
+  </header>
+
+  {{ content }}
+</article>

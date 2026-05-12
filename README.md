@@ -1,53 +1,71 @@
-# Welcome to My Personal Website!
+# 21hoss.github.io
 
-Hi,
+Source for **kelvin // ctf** — a dark, terminal-styled blog for publishing
+Capture The Flag write-ups.
 
-My name is *Kelvin Muhoro* and I'm a Cybersecurity engineer based out of Kenya who is building and writing online.
-I hope you find something here worth your time.
+- **Live site:** <https://21hoss.github.io>
+- **Generator:** [Jekyll 4](https://jekyllrb.com) (custom theme, no remote
+  themes), deployed via GitHub Actions.
+- **Highlighter:** Rouge, with a hand-tuned Tokyo Night-ish palette tuned for
+  GDB, Volatility 3, Ghidra output, and Python.
 
-# The projects I'm actively working on
+## Local development
 
-This is where I keep track of my active endeavors. Nothing fancy, just a list with a quick overview and a link to learn more.
+```bash
+bundle install
+bundle exec jekyll serve --livereload
+```
 
-## Current Focus
+Then open <http://localhost:4000>.
 
-I do lots of stuff, but my primary work right now is identifying and exploiting vulnerabilities in web applications to better understand and defend against real-world threats. 
+## Adding a write-up
 
-I'm also grinding a massive streak on TryHackMe to sharpen my practical skills, actively blogging about security concepts, CTF strategies, and ethical hacking insights, and gearing up for the CyberGame KE—a 10-week Kenyan cybersecurity challenge starting March 1, 2026, where I'll tackle incident handling, malware analysis, cryptography, forensics, web exploitation, OSINT and more. 
+1. Copy `ctf-template.md` into
+   `_writeups/<platform>/<category>/<YYYY-MM-DD>-<slug>.md`.
+2. Fill in the front matter (`title`, `platform`, `category`, `difficulty`,
+   `date`, `tags`, etc.).
+3. Write the body in Markdown. Fenced code blocks get the terminal treatment
+   automatically; use the language hint that best matches the tool (e.g.
+   `gdb`, `python`, `bash`, `console`, `nasm`, `http`).
+4. Commit and push. GitHub Actions will build and deploy.
 
-After it wraps on May 9, I'll publish comprehensive writeups to share lessons learned and inspire the community. In the meanwhile, check out my latest posts.
+## Adding a competition
 
-### Last Update: February 20, 2026 (GMT+3)
+Drop a Markdown file in `_competitions/`:
 
-* * *
-- Writeups
-    - [Writeup 1](https://21hoss.github.io/), February 20, 2026
-    - [Writeup 2](https://21hoss.github.io/), February 20, 2026
+```yaml
+---
+title: "CyberGame KE 2026"
+slug:  "cybergame-ke-2026"
+start_date: 2026-03-01
+end_date:   2026-05-09
+status:     "upcoming"   # active | upcoming | archived
+team:       "Solo"
+url:        "https://example.com"
+description: "Ten-week Kenyan cybersecurity challenge."
+---
+```
 
-* * *
-## My Research
+Write-ups whose `ctf:` front-matter field matches the competition `title` get
+auto-linked on the event page.
 
-- Research 1:
-  - Authentication & Session Management Vulnerabilities
-    1. Broken authentication flows (credential stuffing, weak password policies, account enumeration)
-    2. Session token entropy and predictability
-    3. JWT (JSON Web Token) misconfigurations — algorithm confusion attacks (e.g., RS256 → HS256), weak secrets, missing expiry validation
-    4. Multi-factor authentication bypass techniques
-    5. Password reset flow weaknesses (token reuse, no expiry, host header injection)
-    6. OAuth 2.0 implementation flaws (open redirect, CSRF on authorization endpoint, token leakage)
+## Project structure
 
-Methodology: Follow OWASP Testing Guide (OTG-AUTHN) and the OWASP Authentication Cheat Sheet. Document each test case, expected vs. actual behavior, and business impact.
-
-- Research 2:
-  - Business Logic & API Abuse Vulnerabilities
-    1. Race conditions
-    2. Insecure Direct Object References (IDOR)
-    3. API rate limiting failures
-    4. Parameter tampering
-
-Methodology: Map all API endpoints through proxied traffic, then systematically test each for logic flaws using both authenticated and unauthenticated sessions. Focus on multi-step workflows.
-
-* * *
-- Blog Posts
-    - [Blog Post 1](https://21hoss.github.io/), February 20, 2026
-    - [Blog Post 2](https://21hoss.github.io/), February 20, 2026
+```
+.
+├── _config.yml
+├── _layouts/          # default, page, post, writeup, competition, home
+├── _includes/         # head, header, footer, writeup-card, competition-card
+├── _writeups/         # CTF write-ups grouped by platform/category
+├── _competitions/     # one file per CTF event
+├── assets/
+│   ├── css/main.scss
+│   └── js/site.js
+├── ctf/               # /ctf/ listing
+├── competitions/      # /competitions/ listing
+├── about/  blog/  research/
+├── categories.md      # /categories/
+├── tags.md            # /tags/
+├── ctf-template.md    # write-up scaffold
+└── .github/workflows/pages.yml
+```

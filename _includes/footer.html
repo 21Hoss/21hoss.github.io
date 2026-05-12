@@ -1,0 +1,32 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container footer-inner">
+    <div class="footer-col">
+      <p class="footer-brand">
+        <span class="prompt-mini">$</span> echo "{{ site.author.name }} — {{ site.author.location }}"
+      </p>
+      <p class="footer-tag">{{ site.tagline }}</p>
+    </div>
+    <div class="footer-col">
+      <h4>Navigate</h4>
+      <ul>
+        <li><a href="{{ '/' | relative_url }}">Home</a></li>
+        <li><a href="{{ '/ctf/' | relative_url }}">Write-ups</a></li>
+        <li><a href="{{ '/competitions/' | relative_url }}">Competitions</a></li>
+        <li><a href="{{ '/categories/' | relative_url }}">Categories</a></li>
+        <li><a href="{{ '/tags/' | relative_url }}">Tags</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Elsewhere</h4>
+      <ul>
+        {%- if site.social.github -%}<li><a href="https://github.com/{{ site.social.github }}" rel="me noopener">github.com/{{ site.social.github }}</a></li>{%- endif -%}
+        <li><a href="{{ '/feed.xml' | relative_url }}">RSS feed</a></li>
+        <li><a href="{{ '/sitemap.xml' | relative_url }}">Sitemap</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; {{ 'now' | date: "%Y" }} {{ site.author.name }} · Built with Jekyll · <a href="https://github.com/{{ site.social.github }}/{{ site.social.github }}.github.io">Source</a></p>
+    <p class="cursor-line">cat /var/log/sec.log | tail -n 1 <span class="blink">▌</span></p>
+  </div>
+</footer>

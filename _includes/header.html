@@ -1,0 +1,29 @@
+<header class="site-header" role="banner">
+  <div class="container header-inner">
+    <a class="site-brand" href="{{ '/' | relative_url }}" aria-label="{{ site.title }} home">
+      <span class="prompt">user@21hoss</span><span class="sep">:</span><span class="path">~</span><span class="dollar">$</span>
+      <span class="brand-name">{{ site.title }}</span>
+    </a>
+
+    <button class="nav-toggle" aria-controls="primary-nav" aria-expanded="false" type="button">
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="nav-toggle-bar"></span>
+      <span class="visually-hidden">Toggle navigation</span>
+    </button>
+
+    <nav class="site-nav" id="primary-nav" aria-label="Primary">
+      <ul>
+        {%- assign pages_list = site.header_pages -%}
+        {%- for page_path in pages_list -%}
+          {%- assign nav_page = site.pages | where: "path", page_path | first -%}
+          {%- if nav_page -%}
+            {%- assign current = false -%}
+            {%- if page.url contains nav_page.url and nav_page.url != "/" -%}{%- assign current = true -%}{%- endif -%}
+            <li><a href="{{ nav_page.url | relative_url }}"{% if current %} class="is-current" aria-current="page"{% endif %}>{{ nav_page.title | default: nav_page.name }}</a></li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    </nav>
+  </div>
+</header>

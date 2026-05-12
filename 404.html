@@ -1,0 +1,16 @@
+---
+layout: default
+permalink: /404.html
+title: "404 — segmentation fault"
+---
+
+<section class="hero" style="text-align:center; margin-top: 4rem;">
+  <div style="grid-column: 1 / -1;">
+    <pre class="highlight" style="text-align:left; max-width: 640px; margin: 0 auto;"><code>$ ./find_page --url '{{ page.url }}'
+Program received signal SIGSEGV, Segmentation fault.
+404 in main () at routes.c:42</code></pre>
+    <h1 style="margin-top: 2rem;">404 — page not found</h1>
+    <p class="muted">The page you tried to reach doesn't exist on this host.</p>
+    <p><a class="btn btn-primary" href="{{ '/' | relative_url }}">$ cd ~</a> &nbsp; <a class="btn btn-outline" href="{{ '/ctf/' | relative_url }}">Browse write-ups</a></p>
+  </div>
+</section>

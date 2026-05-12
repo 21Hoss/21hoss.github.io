@@ -1,0 +1,15 @@
+{%- assign e = include.event -%}
+{%- assign event_writeups = site.writeups | where: "ctf", e.title -%}
+<article class="card competition-card" data-status="{{ e.status }}">
+  <div class="card-meta">
+    <span class="badge status status--{{ e.status }}">{{ e.status }}</span>
+    {%- if e.start_date -%}<span class="badge badge-platform">{{ e.start_date | date: "%Y" }}</span>{%- endif -%}
+    {%- if event_writeups.size > 0 -%}<span class="badge badge-points">{{ event_writeups.size }} write-up{% if event_writeups.size != 1 %}s{% endif %}</span>{%- endif -%}
+  </div>
+  <h3 class="card-title"><a href="{{ e.url | relative_url }}">{{ e.title }}</a></h3>
+  {%- if e.description -%}<p class="card-excerpt">{{ e.description | truncate: 180 }}</p>{%- endif -%}
+  <footer class="card-footer">
+    <time>{{ e.start_date | date: "%b %Y" }}{% if e.end_date %} → {{ e.end_date | date: "%b %Y" }}{% endif %}</time>
+    {%- if e.team -%}<span>{{ e.team }}</span>{%- endif -%}
+  </footer>
+</article>
