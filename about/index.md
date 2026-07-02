@@ -18,8 +18,7 @@ TryHackMe, breaking crypto, and doing security research.
   flaws, IDOR, and race conditions.
 - **CTF play** — across forensics, pwn, reversing, crypto, web, OSINT,
   malware, and incident handling. I've geared up for **[CyberGame KE
-  2026]({{ '/competitions/cybergame-ke-2026/' | relative_url }})**, a ten-week
-  Kenyan cybersecurity challenge that ended May 10, 2026.
+  2026]({{ '/competitions/cybergame-ke-2026/' | relative_url }})**, a ten-week cybersecurity challenge in partnership with slovakia that ended May 10, 2026.
 - **Writing** — every challenge I solve, I write up. Both for me (a future
   self who forgot how `vol.py` arguments work) and for anyone else stuck on
   the same problem.
