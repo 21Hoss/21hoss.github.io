@@ -765,8 +765,14 @@ figure.highlight, div.highlighter-rouge {
   html { scroll-behavior: auto; }
 }
 
-/* Hide the broken language label and duplicate copy button outside the container */
+/* Fix theme duplication bug on code blocks */
 .highlight + .lang-label,
-.highlight + .lang-label + .code-copy {
+.highlight + .code-copy,
+.highlight + button.code-copy {
+    display: none !important;
+}
+
+/* If the script cloned an entire secondary block container, hide it */
+.highlight + .highlight {
     display: none !important;
 }
