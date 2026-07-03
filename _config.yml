@@ -1,9 +1,7 @@
 title: "kelvin // ctf"
 tagline: "Enumeration is key."
 description: >-
-  CTF write-ups, security research, and notes from a
-  cybersecurity engineer. Forensics, binary exploitation, reversing,
-  cryptography, and web.
+  Executing arbitrary write-ups, reverse engineering deep-dives, and applied security research. Documenting the mechanics of memory corruption, digital forensics, cryptography, and web vulnerabilities.
 author:
   name: "Kelvin Muhoro"
   handle: "21hoss"
