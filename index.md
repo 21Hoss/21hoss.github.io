@@ -10,8 +10,7 @@ This is where I publish full Capture The Flag write-ups across every discipline
 I touch — forensics, binary exploitation, reverse engineering, cryptography,
 web, OSINT, malware analysis, and incident handling.
 
-I try to make every write-up reproducible: every command, every payload, every
-gotcha. If a step took me three hours of staring at a hex dump, you should be
+I try to make every write-up reproducible: every command, every payload. If a step took me three hours of staring at a hex dump, you should be
 able to do it in three minutes by reading the relevant section.
 
 Beyond write-ups you'll also find:

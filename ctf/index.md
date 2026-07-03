@@ -37,6 +37,6 @@ description: "Reproducible walkthroughs across forensics, pwn, reversing, crypto
 
 ---
 
-> [!NOTE] To add a new write-up, copy `ctf-template.md` into
+<!-- > [!NOTE] To add a new write-up, copy `ctf-template.md` into
 > `_writeups/<platform>/<category>/<YYYY-MM-DD>-<slug>.md`, fill in the front
-> matter, and commit. The card grid above will pick it up automatically.
+> matter, and commit. The card grid above will pick it up automatically. -->

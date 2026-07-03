@@ -15,8 +15,8 @@ Vulnerability classes I'm currently dissecting:
 1. Broken authentication flows — credential stuffing, weak password
    policies, account enumeration.
 2. Session token entropy and predictability.
-3. JWT misconfigurations — algorithm confusion attacks (e.g. `RS256` →
-   `HS256`), weak secrets, missing expiry validation.
+3. JWT misconfigurations — algorithm confusion attacks (e.g. **RS256** →
+   **HS256**), weak secrets, missing expiry validation.
 4. Multi-factor authentication bypass techniques.
 5. Password reset flow weaknesses — token reuse, no expiry, host header
    injection.

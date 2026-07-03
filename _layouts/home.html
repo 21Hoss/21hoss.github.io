@@ -7,23 +7,27 @@ layout: default
       <span class="dot dot-red"></span>
       <span class="dot dot-amber"></span>
       <span class="dot dot-green"></span>
-      <span class="term-title">~/21hoss — zsh</span>
+      <span class="term-title">~/ctf/pwn/buffer_overflow — zsh</span>
     </div>
     <div class="term-body">
-      <p><span class="prompt-mini">$</span> whoami</p>
-      <p class="term-out">kelvin_muhoro</p>
-      <p><span class="prompt-mini">$</span> id</p>
-      <p class="term-out">uid=1000(kelvin) groups=1000(kelvin),27(sudo),offsec,blue,red</p>
-      <p><span class="prompt-mini">$</span> cat ~/.profile</p>
-      <p class="term-out term-typed" data-typed='Cybersecurity engineer based in Nairobi. CTF write-ups, applied research, and notes from the trenches.'></p>
-      <p><span class="prompt-mini">$</span> ls /home/kelvin/writeups | head</p>
-      <p class="term-out">forensics  pwn  reversing  crypto  web  osint  malware  incident-handling</p>
+      <p><span class="prompt-mini">$</span> checksec ./chall</p>
+      <p class="term-out">Arch: amd64 | Canary: open | NX: enabled | PIE: disabled</p>
+      
+      <p><span class="prompt-mini">$</span> ./exploit.py REMOTE</p>
+      <p class="term-out">[+] Target: ctf.platform.local:9999</p>
+      <p class="term-out">[+] Leaking libc base address... Found at 0x7f8c12a0d000</p>
+      <p class="term-out">[+] Constructing ROP chain -> pop rdi; ret</p>
+      <p class="term-out">[+] Sending payload (128 bytes) -> Spawning shell...</p>
+      <p class="term-out">[+] Success! Interactive session 1 opened.</p>
+      
+      <p><span class="prompt-mini">$</span> cat flag.txt</p>
+      <p class="term-out term-typed" data-typed="flag{r3turn_2_l1bc_f0r_th3_w1n}"></p>
       <p><span class="prompt-mini">$</span> <span class="cursor blink">▌</span></p>
     </div>
   </div>
 
   <div class="hero-copy">
-    <h1 class="hero-title">Enumeration is key.</h1>
+    <h1 class="hero-title">Control flow hijacked.</h1>
     <p class="hero-lead">{{ site.description }}</p>
     <div class="hero-actions">
       <a class="btn btn-primary" href="{{ '/ctf/' | relative_url }}">Browse write-ups →</a>
