@@ -764,3 +764,9 @@ figure.highlight, div.highlighter-rouge {
   *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Hide the broken language label and duplicate copy button outside the container */
+.highlight + .lang-label,
+.highlight + .lang-label + .code-copy {
+    display: none !important;
+}
