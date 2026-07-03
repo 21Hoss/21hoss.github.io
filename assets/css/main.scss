@@ -765,14 +765,19 @@ figure.highlight, div.highlighter-rouge {
   html { scroll-behavior: auto; }
 }
 
-/* Fix theme duplication bug on code blocks */
-.highlight + .lang-label,
-.highlight + .code-copy,
-.highlight + button.code-copy {
+/* Fix the theme's JavaScript double-block duplication bug */
+div.highlight ~ .lang-label,
+div.highlight ~ button.code-copy,
+div.highlight ~ .code-copy {
     display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
 }
 
-/* If the script cloned an entire secondary block container, hide it */
-.highlight + .highlight {
+/* If the script cloned an entire empty wrapper block beneath it, collapse it completely */
+div.highlight + div.highlight:empty, 
+div.highlight + .highlight:has(.lang-label) {
     display: none !important;
 }
