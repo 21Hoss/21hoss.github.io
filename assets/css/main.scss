@@ -570,18 +570,29 @@ hr {
 
 /* ─── Inline code + terminal code blocks ───────────────────────────────── */
 
-:not(pre) > code {
+:not(pre) > code,
+code:not(pre code),
+code.highlighter-rouge {
   font-family: var(--font-mono);
-  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
-  color: var(--accent-2);
-  padding: .08rem .35rem;
-  border-radius: 4px;
-  font-size: .88em;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface)) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border)) !important;
+  color: var(--accent-2) !important;
+  padding: .08rem .35rem !important;
+  border-radius: 4px !important;
+  font-size: .88em !important;
   word-break: break-word;
+  display: inline !important;
+  position: static !important;
+  box-shadow: none !important;
+
+  &::before,
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
 }
 
-pre, .highlight, .highlighter-rouge pre, figure.highlight pre {
+pre, figure.highlight pre {
   font-family: var(--font-mono);
   font-size: .88rem;
   line-height: 1.55;
@@ -600,7 +611,7 @@ figure.highlight, div.highlighter-rouge {
 }
 
 /* Terminal "window" treatment for fenced code blocks */
-.highlight, figure.highlight, .highlighter-rouge {
+div.highlighter-rouge, figure.highlight, div.highlight {
   position: relative;
   background: var(--bg-elev);
   border: 1px solid var(--border-2);
@@ -609,14 +620,14 @@ figure.highlight, div.highlighter-rouge {
   box-shadow: var(--shadow-1);
   overflow: hidden;
 }
-.highlight pre, figure.highlight pre, .highlighter-rouge pre {
+div.highlighter-rouge pre, figure.highlight pre, div.highlight pre, .highlighter-rouge pre, .highlight pre {
   margin: 0;
   border: 0;
   background: transparent;
-  padding: 2.4rem 1rem 1rem;
+  padding: 2.5rem 1rem 1rem;
   border-radius: 0;
 }
-.highlight::before, figure.highlight::before, .highlighter-rouge::before {
+div.highlighter-rouge::before, figure.highlight::before, div.highlight::before {
   content: "";
   display: block;
   height: 28px;
@@ -624,7 +635,7 @@ figure.highlight, div.highlighter-rouge {
   border-bottom: 1px solid var(--border);
   position: absolute; top: 0; left: 0; right: 0;
 }
-.highlight::after, figure.highlight::after, .highlighter-rouge::after {
+div.highlighter-rouge::after, figure.highlight::after, div.highlight::after {
   content: "";
   position: absolute;
   top: 10px; left: 14px;
@@ -638,7 +649,7 @@ figure.highlight, div.highlighter-rouge {
 
 /* Language label on the right of the title bar */
 .highlight[data-lang]::after, figure.highlight[data-lang]::after { /* keep dots */ }
-.highlight .lang-label, figure.highlight .lang-label {
+.highlighter-rouge .lang-label, .highlight .lang-label, figure.highlight .lang-label {
   position: absolute; top: 6px; right: 12px;
   font-family: var(--font-mono); font-size: .72rem; color: var(--fg-muted);
   letter-spacing: .04em; text-transform: uppercase;
@@ -656,7 +667,7 @@ figure.highlight, div.highlighter-rouge {
   cursor: pointer;
   opacity: 0; transition: opacity .15s ease, color .15s ease;
 }
-.highlight:hover .code-copy, figure.highlight:hover .code-copy { opacity: 1; }
+.highlighter-rouge:hover .code-copy, .highlight:hover .code-copy, figure.highlight:hover .code-copy { opacity: 1; }
 .code-copy:hover { color: var(--accent); border-color: var(--accent); }
 .code-copy.copied { color: var(--accent); border-color: var(--accent); }
 
@@ -783,81 +794,87 @@ div.highlight + .highlight:has(.lang-label) {
 }
 
 /* ──────────────────────────────────────────────────────────────────────────
-   FIX: Restrict window dots ONLY to multi-line code blocks (<pre>)
+   FIX: Code block bugs
+   1. Inline backtick code blocks do not render terminal title bars or window dots
+   2. Prevent double-nested .highlighter-rouge > .highlight blocks from rendering double borders or stacked window controls
+   3. Ensure all <pre> code elements maintain padding-top: 2.5rem
    ────────────────────────────────────────────────────────────────────────── */
 
-/* Remove top titlebar and window dots from block containers that lack a <pre> element */
-.highlight:not(:has(pre)),
-figure.highlight:not(:has(pre)),
-.highlighter-rouge:not(:has(pre)) {
-  padding: 0 !important;
-  box-shadow: none !important;
-  border: none !important;
-  background: transparent !important;
-}
-
-.highlight:not(:has(pre))::before,
-figure.highlight:not(:has(pre))::before,
-.highlighter-rouge:not(:has(pre))::before,
-.highlight:not(:has(pre))::after,
-figure.highlight:not(:has(pre))::after,
-.highlighter-rouge:not(:has(pre))::after {
-  content: none !important;
-  display: none !important;
-}
-
-/* Reset inline <code> tags inside paragraphs or lists */
-:not(pre) > code {
+/* 1. Ensure inline backtick code blocks do not render terminal title bars or window dots */
+:not(pre) > code,
+code:not(pre code),
+code.highlighter-rouge {
   font-family: var(--font-mono);
-  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
-  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
-  color: var(--accent-2);
-  padding: 0.08rem 0.35rem;
-  border-radius: 4px;
-  font-size: 0.88em;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface)) !important;
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border)) !important;
+  color: var(--accent-2) !important;
+  padding: 0.08rem 0.35rem !important;
+  border-radius: 4px !important;
+  font-size: 0.88em !important;
   word-break: break-word;
   display: inline !important;
+  position: static !important;
+  box-shadow: none !important;
+
+  &::before,
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
 }
 
-/* ──────────────────────────────────────────────────────────────────────────
-   FIX: Prevent double-nested terminal windows on fenced code blocks
-   ────────────────────────────────────────────────────────────────────────── */
-
-/* Remove background, border, padding, and dots from nested highlight wrappers */
-.highlighter-rouge .highlight,
-.highlight .highlight,
-div.highlighter-rouge > div.highlight {
+/* 2. Prevent double-nested .highlighter-rouge > .highlight blocks from rendering double borders or stacked window controls */
+.highlighter-rouge > .highlight,
+.highlighter-rouge > div.highlight,
+div.highlighter-rouge > div.highlight,
+div.highlighter-rouge > .highlight,
+.highlight > .highlight,
+div.highlight > div.highlight {
   background: transparent !important;
   border: none !important;
+  border-radius: 0 !important;
   box-shadow: none !important;
   padding: 0 !important;
   margin: 0 !important;
+  overflow: visible !important;
+
+  &::before,
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  > .lang-label,
+  > .code-copy {
+    display: none !important;
+  }
 }
 
-.highlighter-rouge .highlight::before,
-.highlighter-rouge .highlight::after,
-.highlight .highlight::before,
-.highlight .highlight::after {
-  content: none !important;
-  display: none !important;
+/* 3. Ensure all <pre> code elements maintain padding-top: 2.5rem so text starts below window dots */
+pre,
+.highlight pre,
+figure.highlight pre,
+.highlighter-rouge pre,
+div.highlighter-rouge pre,
+div.highlight pre,
+.highlighter-rouge > .highlight pre,
+.highlighter-rouge .highlight pre {
+  padding-top: 2.5rem !important;
 }
 
-/* Ensure the inner <pre> tag fills the container cleanly without additional borders */
-.highlighter-rouge .highlight pre,
-.highlight .highlight pre {
+.highlighter-rouge pre,
+.highlight pre,
+figure.highlight pre,
+div.highlighter-rouge pre,
+div.highlight pre {
   border: none !important;
   background: transparent !important;
   box-shadow: none !important;
-}
+  border-radius: 0 !important;
 
-/* ──────────────────────────────────────────────────────────────────────────
-   FIX: Restore top padding for pre elements inside window containers
-   ────────────────────────────────────────────────────────────────────────── */
-
-.highlighter-rouge pre,
-.highlight pre {
-  padding-top: 2.4rem !important;
-  padding-bottom: 1rem !important;
-  padding-left: 1.25rem !important;
-  padding-right: 1.25rem !important;
+  &::before,
+  &::after {
+    content: none !important;
+    display: none !important;
+  }
 }
