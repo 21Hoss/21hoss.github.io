@@ -781,3 +781,40 @@ div.highlight + div.highlight:empty,
 div.highlight + .highlight:has(.lang-label) {
     display: none !important;
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   FIX: Restrict window dots ONLY to multi-line code blocks (<pre>)
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Remove top titlebar and window dots from block containers that lack a <pre> element */
+.highlight:not(:has(pre)),
+figure.highlight:not(:has(pre)),
+.highlighter-rouge:not(:has(pre)) {
+  padding: 0 !important;
+  box-shadow: none !important;
+  border: none !important;
+  background: transparent !important;
+}
+
+.highlight:not(:has(pre))::before,
+figure.highlight:not(:has(pre))::before,
+.highlighter-rouge:not(:has(pre))::before,
+.highlight:not(:has(pre))::after,
+figure.highlight:not(:has(pre))::after,
+.highlighter-rouge:not(:has(pre))::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Reset inline <code> tags inside paragraphs or lists */
+:not(pre) > code {
+  font-family: var(--font-mono);
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--accent) 18%, var(--border));
+  color: var(--accent-2);
+  padding: 0.08rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.88em;
+  word-break: break-word;
+  display: inline !important;
+}
