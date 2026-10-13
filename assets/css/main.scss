@@ -818,3 +818,34 @@ figure.highlight:not(:has(pre))::after,
   word-break: break-word;
   display: inline !important;
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   FIX: Prevent double-nested terminal windows on fenced code blocks
+   ────────────────────────────────────────────────────────────────────────── */
+
+/* Remove background, border, padding, and dots from nested highlight wrappers */
+.highlighter-rouge .highlight,
+.highlight .highlight,
+div.highlighter-rouge > div.highlight {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.highlighter-rouge .highlight::before,
+.highlighter-rouge .highlight::after,
+.highlight .highlight::before,
+.highlight .highlight::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Ensure the inner <pre> tag fills the container cleanly without additional borders */
+.highlighter-rouge .highlight pre,
+.highlight .highlight pre {
+  border: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
