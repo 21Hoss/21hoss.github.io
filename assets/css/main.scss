@@ -849,3 +849,15 @@ div.highlighter-rouge > div.highlight {
   background: transparent !important;
   box-shadow: none !important;
 }
+
+/* ──────────────────────────────────────────────────────────────────────────
+   FIX: Restore top padding for pre elements inside window containers
+   ────────────────────────────────────────────────────────────────────────── */
+
+.highlighter-rouge pre,
+.highlight pre {
+  padding-top: 2.4rem !important;
+  padding-bottom: 1rem !important;
+  padding-left: 1.25rem !important;
+  padding-right: 1.25rem !important;
+}
